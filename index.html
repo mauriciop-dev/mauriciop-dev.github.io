@@ -1,46 +1,541 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portafolio de Mauricio Pineda</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mauricio Pineda | Python Developer & AI Engineer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00d4aa;
+            --secondary: #1a1a2e;
+            --accent: #16213e;
+            --text-light: #e4e4e7;
+            --text-dark: #71717a;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #0f172a, #1e293b);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23334155" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.4;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(0, 212, 170, 0.3)); }
+            to { filter: drop-shadow(0 0 30px rgba(0, 212, 170, 0.6)); }
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--bg-card);
+            border-radius: 50px;
+            border: 1px solid rgba(0, 212, 170, 0.2);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.2);
+        }
+
+        .tech-item i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--text-light);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(0, 212, 170, 0.3);
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .project-description {
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: #00f5cc;
+            transform: translateX(5px);
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 0.3rem 0.8rem;
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--bg-card), var(--accent));
+            border-radius: 30px;
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0.1;
+            border-radius: 30px;
+        }
+
+        .contact-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-item i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .contact-item a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary);
+        }
+
+        .cv-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.3);
+        }
+
+        .cv-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 170, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .tech-stack {
+                gap: 1rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
+    <div class="bg-animation"></div>
+    
+    <div class="container">
+        <header>
+            <div class="hero-content fade-in">
+                <h1>Mauricio Pineda</h1>
+                <p class="subtitle">
+                    <i class="fas fa-code"></i> Python Developer | 
+                    <i class="fas fa-robot"></i> AI Engineer | 
+                    <i class="fas fa-cogs"></i> Automation Specialist
+                </p>
+                
+                <div class="tech-stack">
+                    <div class="tech-item">
+                        <i class="fab fa-python"></i>
+                        <span>Python</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-brain"></i>
+                        <span>Machine Learning</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-cogs"></i>
+                        <span>Automation</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-robot"></i>
+                        <span>AI Agents</span>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-  <h1>👨‍💻 Portafolio de Mauricio Pineda</h1>
-  <p>Desarrollador orientado a automatización, agentes inteligentes e inteligencia artificial aplicada.</p>
+        <section class="projects fade-in">
+            <h2 class="section-title">
+                <i class="fas fa-rocket"></i> Proyectos Destacados
+            </h2>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">🌾</div>
+                    <h3 class="project-title">Calculadora Agrícola</h3>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Data Analysis</span>
+                        <span class="tag">Agriculture</span>
+                    </div>
+                    <p class="project-description">
+                        Sistema inteligente para calcular costos agrícolas por hectárea, optimizando la toma de decisiones en el sector rural mediante análisis automatizado de insumos.
+                    </p>
+                    <a href="https://github.com/mauriciop-dev/calculadora_agricola_python" class="project-link" target="_blank">
+                        <i class="fab fa-github"></i> Ver Código
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
 
-  <section>
-    <h2>🚀 Proyectos Destacados</h2>
+                <div class="project-card">
+                    <div class="project-icon">📦</div>
+                    <h3 class="project-title">Sistema de Inventario</h3>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">CLI</span>
+                        <span class="tag">CRUD</span>
+                    </div>
+                    <p class="project-description">
+                        Aplicación interactiva de gestión de inventario con interfaz de consola avanzada, implementando operaciones CRUD y búsquedas eficientes para productos.
+                    </p>
+                    <a href="https://github.com/mauriciop-dev/inventario_basico_python" class="project-link" target="_blank">
+                        <i class="fab fa-github"></i> Ver Código
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
 
-    <div class="proyecto">
-      <h3><a href="https://github.com/mauriciop-dev/calculadora_agricola_python" target="_blank">🌾 Calculadora Agrícola</a></h3>
-      <p>Calculadora de costos agrícolas según insumos por hectárea. Diseñada para facilitar decisiones rurales.</p>
+                <div class="project-card">
+                    <div class="project-icon">🧠</div>
+                    <h3 class="project-title">Procesador de Texto IA</h3>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">NLP</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                    <p class="project-description">
+                        Motor de procesamiento textual avanzado utilizando list comprehensions y generadores, diseñado para automatizar tareas de transformación y análisis de texto.
+                    </p>
+                    <a href="https://github.com/mauriciop-dev/procesador_frases" class="project-link" target="_blank">
+                        <i class="fab fa-github"></i> Ver Código
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact fade-in">
+            <div class="contact-content">
+                <h2 class="section-title">
+                    <i class="fas fa-satellite-dish"></i> Conectemos
+                </h2>
+                
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong>
+                            <a href="mailto:mauricio.pineda@prospectivadigital.com">mauricio.pineda@prospectivadigital.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-globe"></i>
+                        <div>
+                            <strong>Website</strong>
+                            <a href="https://www.prospectivadigital.com" target="_blank">prospectivadigital.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <div>
+                            <strong>Móvil</strong>
+                            <a href="tel:+573144897092">+57 314 489 7092</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="Mauricio_P_CV.pdf" class="cv-button" download>
+                    <i class="fas fa-download"></i>
+                    Descargar CV
+                </a>
+            </div>
+        </section>
     </div>
 
-    <div class="proyecto">
-      <h3><a href="https://github.com/mauriciop-dev/inventario_basico_python" target="_blank">📦 Inventario Básico</a></h3>
-      <p>Sistema interactivo de inventario usando Python y consola. Añade, resta y busca productos fácilmente.</p>
-    </div>
+    <script>
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-    <div class="proyecto">
-      <h3><a href="https://github.com/mauriciop-dev/procesador_frases" target="_blank">🧠 Procesador de Frases</a></h3>
-      <p>Filtra y transforma frases automáticamente usando <strong>list comprehensions</strong> y <strong>generadores</strong> en Python. Ideal para automatizar tareas de procesamiento textual.</p>
-    </div>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
 
-  </section>
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
 
-  <hr />
+        // Add some interactive particles effect
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 4px;
+                height: 4px;
+                background: #00d4aa;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 0;
+                opacity: 0.7;
+            `;
+            
+            document.body.appendChild(particle);
+            
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            
+            particle.animate([
+                { transform: 'translate(0, 0) scale(1)', opacity: 0.7 },
+                { transform: `translate(${(Math.random() - 0.5) * 200}px, ${(Math.random() - 0.5) * 200}px) scale(0)`, opacity: 0 }
+            ], {
+                duration: 3000,
+                easing: 'ease-out'
+            }).onfinish = () => particle.remove();
+        }
 
-  <section class="contacto">
-    <h2>📬 Contacto</h2>
-    <p><strong>Correo:</strong> <a href="mailto:mauricio.pineda@prospectivadigital.com">mauricio.pineda@prospectivadigital.com</a></p>
-    <p><strong>Sitio Web:</strong> <a href="https://www.prospectivadigital.com" target="_blank">www.prospectivadigital.com</a></p>
-    <p><strong>Móvil:</strong> +57 314 489 7092</p>
-
-    <a href="Mauricio_P_CV.pdf" class="boton-cv" download>📄 Descargar CV</a>
-  </section>
-
+        // Create particles occasionally
+        setInterval(createParticle, 2000);
+    </script>
 </body>
 </html>
